@@ -1,0 +1,5 @@
+#!/bin/bash
+time2=$(date "+%Y-%m-%d_%H:%M:%S")
+git add pc
+git commit -m $time2
+#git push
