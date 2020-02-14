@@ -1,8 +1,8 @@
 package service
 
 import (
-	"project/conf"
-	"project/util"
+	"demoproject/conf"
+	"demoproject/util"
 )
 
 type Demo struct {

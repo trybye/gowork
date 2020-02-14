@@ -1,8 +1,8 @@
 package api
 
 import (
-	"project/conf"
-	"project/service"
+	"demoproject/conf"
+	"demoproject/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"

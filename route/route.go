@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
-	"project/middleware"
-	"project/route/api"
+	"demoproject/middleware"
+	"demoproject/route/api"
 )
 
 func NewRoute() *gin.Engine {

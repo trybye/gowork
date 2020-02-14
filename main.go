@@ -1,11 +1,10 @@
 package main
 
 import (
-	"project/conf"
-	_ "project/docs"
-	"project/route"
-	"project/util"
-	"github.com/gin-gonic/gin"
+	"demoproject/conf"
+	_ "demoproject/docs"
+	"demoproject/route"
+	"demoproject/util"
 )
 
 // @title a demo
