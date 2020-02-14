@@ -1,12 +1,12 @@
 package route
 
 import (
-	"project/api"
-	"project/middleware"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
+	"project/middleware"
+	"project/route/api"
 )
 
 func NewRoute() *gin.Engine {
