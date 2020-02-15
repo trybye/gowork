@@ -1,5 +1,0 @@
-1.数据库中表cal需要数据
-2.设置图片生成路径,/data/tools/app/pay/img/
-3.doc路径
-4.app.yaml文件配置
-5.代码里面mq的vhost设置
