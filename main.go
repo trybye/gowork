@@ -13,14 +13,14 @@ import (
 // @termsOfService https://hello.com
 // @license.name Apache 2.0
 // @license.url https://hi.com
-// @host 192.168.0.13:8888
+// @host localhost:8888
 // @BasePath
 
 func main() {
 	conf.InitFlag()
 	util.InitLog()
 
-	util.Logzap.Info("Bongour...")
+	util.Logzap.Info("Roooooooot...")
 	//runtime.GOMAXPROCS()
 	conf.Setup()
 	go util.CronJob()       //定时任务
