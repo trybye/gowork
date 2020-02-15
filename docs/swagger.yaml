@@ -1,0 +1,53 @@
+definitions:
+  util.Errno:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
+    type: object
+host: 192.168.0.13:8888
+info:
+  contact: {}
+  description: A demo
+  license:
+    name: Apache 2.0
+    url: https://hi.com
+  termsOfService: https://hello.com
+  title: a demo
+  version: "1.0"
+paths:
+  /demo_api:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: common
+        in: body
+        name: addr
+        required: true
+        schema:
+          type: string
+      - description: token
+        in: body
+        name: token
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Errno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Errno'
+      summary: swagger's demo
+      tags:
+      - Admin
+swagger: "2.0"

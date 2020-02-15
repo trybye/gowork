@@ -1,0 +1,81 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A demo",
+        "title": "a demo",
+        "termsOfService": "https://hello.com",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://hi.com"
+        },
+        "version": "1.0"
+    },
+    "host": "192.168.0.13:8888",
+    "paths": {
+        "/demo_api": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "swagger's demo",
+                "parameters": [
+                    {
+                        "description": "common",
+                        "name": "addr",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "token",
+                        "name": "token",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/util.Errno"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.Errno"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "util.Errno": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

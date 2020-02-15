@@ -34,8 +34,8 @@ type Redis struct {
 	Db   int    `yaml:"db"`
 }
 
-//enviroment
-var EnviromentPc string
+//environment
+var EnvironmentPc string
 
 //mq client
 var MqCh *amqp.Channel
@@ -53,7 +53,15 @@ func ConfigInit() {
 	//fmt.Println(filepath.Abs(filepath.Dir(os.Args[0])))
 	var by []byte
 	var err error
-	if strings.Compare("dev", EnviromentPc) == 0 {
+	if strings.Compare("local", EnvironmentPc) == 0 {
+		by, err = ioutil.ReadFile(`conf/conf_local.yaml`)
+		fmt.Println(string(by))
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println("conf local")
+
+	} else if strings.Compare("dev", EnvironmentPc) == 0 {
 		by, err = ioutil.ReadFile(`conf/conf_dev.yaml`)
 		fmt.Println(string(by))
 		if err != nil {
@@ -61,7 +69,7 @@ func ConfigInit() {
 		}
 		fmt.Println("app-dev")
 
-	} else if strings.Compare("prod", EnviromentPc) == 0 {
+	} else if strings.Compare("prod", EnvironmentPc) == 0 {
 		by, err = ioutil.ReadFile(`conf/conf-prod.yaml`)
 		fmt.Println(string(by))
 		if err != nil {
@@ -80,10 +88,9 @@ func ConfigInit() {
 
 	}
 
-	//C := AppConfig{}
 	err = yaml.Unmarshal(by, &GlobalConfig)
 	if err != nil {
-		log.Println(err)
+		panic(err)
 
 	}
 	fmt.Printf("--- t:\n%v\n\n", GlobalConfig)
@@ -122,7 +129,7 @@ func ConfigInit() {
 
 	//mq
 	var conn *amqp.Connection
-	if strings.Compare("dev", EnviromentPc) == 0 {
+	if strings.Compare("dev", EnvironmentPc) == 0 {
 		conn, err = amqp.Dial(GlobalConfig.MqRabbit) //开发环境用这个，测试用下面的
 		fmt.Println("mq dev")
 
@@ -152,7 +159,7 @@ func ConfigInit() {
 func FlagUseg() {
 	fmt.Println(`
 	Usage:
-		./pc dev|test|prod  set enviroment,dev开发，test测试,prod 生产
+		./exe local|dev|test|prod  set environment,local本地，dev开发，test测试,prod 生产
 	`)
 
 }
@@ -167,16 +174,20 @@ func InitFlag() {
 	// flag.StringVar() //没用到，感觉直接加参数也挺好的
 	// flag.Parse()
 	switch os.Args[1] {
-	case "local", "dev":
-		fmt.Println("local enviroment")
-		EnviromentPc = "dev"
+	case "local":
+		fmt.Println("local environment")
+		EnvironmentPc = "local"
+
+	case "dev":
+		fmt.Println("dev environment")
+		EnvironmentPc = "dev"
 
 	case "test":
 		fmt.Println("test")
-		EnviromentPc = "test"
+		EnvironmentPc = "test"
 	case "prod":
 		fmt.Println("prod")
-		EnviromentPc = "prod"
+		EnvironmentPc = "prod"
 
 	default:
 		panic(errors.New("no this choose"))
@@ -186,22 +197,8 @@ func InitFlag() {
 
 func Setup() {
 	ConfigInit()
-	r := RedisClient.Set("DealTxRuningSyncChain", "0", 0)
-	x := RedisClient.Set("SyncToFrontendRuning", "0", 0)
-	c := RedisClient.Set("CancelTxTimeOutRuning", "0", 0)
-	u := RedisClient.Set("SyncToFrontendRuningOutput", "0", 0)
-
-	if u.Err() != nil {
-		panic(u.Err())
-	}
+	r := RedisClient.Set("redis_key", "0", 0)
 	if r.Err() != nil {
 		panic(r.Err())
 	}
-	if x.Err() != nil {
-		panic(x.Err())
-	}
-	if c.Err() != nil {
-		panic(x.Err())
-	}
-	//InsertFee()
 }

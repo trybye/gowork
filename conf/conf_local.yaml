@@ -1,0 +1,12 @@
+
+  mysql:
+    user: root
+    pwd: root
+    host: 192.168.0.13:3306
+    db: dbone
+  redis:
+    host: 192.168.0.13:6379
+    pwd:
+    db:
+  mq_rabbit: amqp://guest:guest@localhost:5672/  #本地的或开发的
+
