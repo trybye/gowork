@@ -1,13 +1,9 @@
 package api
 
 import (
-	"demoproject/conf"
 	"demoproject/service"
-	"fmt"
+	"demoproject/util"
 	"github.com/gin-gonic/gin"
-	"strconv"
-	"strings"
-
 )
 
 // @Summary swagger's demo
@@ -21,23 +17,14 @@ import (
 // @Failure 400 {object} util.Errno
 // @Router /demo_api [post]
 func DemoApi(c *gin.Context) {
-	re := service.WalletServiceAdmin{}
+	re := service.Demo{}
 	err := c.ShouldBind(&re)
 	if err != nil {
-		c.JSON(200, util_eth.FAILURE)
+		c.JSON(200, util.FAILURE)
 		return
 	}
-	tok := fmt.Sprintf("token:login:manager:%s:*", re.Token)
-	fmt.Println(tok)
-	r := conf.RedisClient.Keys(tok)
-	fmt.Println(r.Val())
-	if len(r.Val()) == 0 {
-		c.JSON(200, util_eth.NO_ACCESS)
-		util_eth.Logzap.Error("fial..3")
-		return  //todo u must unremark it
-	}
 
-	ree := re.AddAdmin()
+	ree := re.DemoService()
 	c.JSON(200, ree)
 
 }
